@@ -11,6 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -29,6 +30,10 @@ public class SceneControls implements Initializable {
 	private double baseCost = 0,
 			toppingsCost = 0,
 			totalCost = 0;
+	
+	// ******************* Home Scene Items ***************************
+	
+	// ****************************************************************
 	
 	// ******************* Pizza Scene Items **************************
 	private ToggleGroup basePizzaToggleGroup = new ToggleGroup();
@@ -57,6 +62,15 @@ public class SceneControls implements Initializable {
 	public void switchToPizzaScene(ActionEvent e) throws IOException
 	{
 		root = FXMLLoader.load(getClass().getResource("PizzaPage.fxml"));
+		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
+		newScene = new Scene(root);
+		stage.setScene(newScene);
+		stage.show();
+	}
+	
+	public void switchToLoginScene(ActionEvent e) throws IOException
+	{
+		root = FXMLLoader.load(getClass().getResource("EmployeeLoginPage.fxml"));
 		stage = (Stage)((Node)e.getSource()).getScene().getWindow();
 		newScene = new Scene(root);
 		stage.setScene(newScene);
