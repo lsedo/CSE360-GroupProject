@@ -41,7 +41,7 @@ public class SceneControls implements Initializable {
 	@FXML private CheckBox onionsCheckbox = new CheckBox();
 	@FXML private CheckBox olivesCheckbox = new CheckBox();
 	
-	@FXML private Label costLabel;
+	@FXML private Label costLabel = new Label();
 	@FXML private Spinner<Integer> pizzaCount = new Spinner<Integer>();
 	// *****************************************************************
 	
@@ -103,6 +103,10 @@ public class SceneControls implements Initializable {
 		pepperoniButton.setToggleGroup(basePizzaToggleGroup);
 		vegetableButton.setToggleGroup(basePizzaToggleGroup);
 		meatButton.setToggleGroup(basePizzaToggleGroup);
+		
+		// Set the default pizza selection and price
+		pepperoniButton.setSelected(true);
+		costLabel.setText(String.format("%.2f", 9.99));
 		
 		// Set the pizza spinner min-max values
 		SpinnerValueFactory<Integer> pizzaCountFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
