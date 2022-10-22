@@ -97,5 +97,10 @@
          </font>
       </Button>
       <Spinner fx:id="pizzaCount" layoutX="61.0" layoutY="361.0" onMouseClicked="#pizzaCostUpdated" />
+      <Label fx:id="nameLabel" alignment="CENTER" layoutX="358.0" layoutY="26.0" prefHeight="49.0" prefWidth="216.0" textAlignment="CENTER" textFill="#ffd000">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

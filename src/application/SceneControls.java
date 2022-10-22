@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 
@@ -26,13 +27,21 @@ public class SceneControls implements Initializable {
 	private Scene newScene;
 	private Parent root;
 	
+	// user information
+	private String id;
+	private boolean isEmployee = false;
+	
 	// Costs for the pizza
-	private double baseCost = 0,
+	private double baseCost = 9.99,
 			toppingsCost = 0,
 			totalCost = 0;
 	
 	// ******************* Home Scene Items ***************************
 	
+	// ****************************************************************
+	
+	// ******************* Login Scene Items **************************
+	@FXML private TextField usernameTextField = new TextField();
 	// ****************************************************************
 	
 	// ******************* Pizza Scene Items **************************
@@ -45,6 +54,8 @@ public class SceneControls implements Initializable {
 	@FXML private CheckBox mushroomsCheckbox = new CheckBox();
 	@FXML private CheckBox onionsCheckbox = new CheckBox();
 	@FXML private CheckBox olivesCheckbox = new CheckBox();
+	
+	@FXML private Label nameLabel = new Label();
 	
 	@FXML private Label costLabel = new Label();
 	@FXML private Spinner<Integer> pizzaCount = new Spinner<Integer>();
@@ -75,6 +86,18 @@ public class SceneControls implements Initializable {
 		newScene = new Scene(root);
 		stage.setScene(newScene);
 		stage.show();
+	}
+	
+	public void login(ActionEvent e) throws IOException
+	{
+		// If the user has entered a username, not blank or only whitespace
+		if(usernameTextField.getText().isBlank() == false)
+		{
+			id = usernameTextField.getText();
+			System.out.println("User: " + id + " has logged in\n");
+			nameLabel.setText(id);
+			switchToPizzaScene(e);
+		}
 	}
 	
 	public void selectPizzaBase()
@@ -113,6 +136,8 @@ public class SceneControls implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
+		id = "";
+		
 		// Set the base pizza options and put into a toggle group
 		pepperoniButton.setToggleGroup(basePizzaToggleGroup);
 		vegetableButton.setToggleGroup(basePizzaToggleGroup);
