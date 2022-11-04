@@ -7,6 +7,7 @@ public class Pizza {
 	//************ Pizza Information *************
 	private enum PizzaType {Pepperoni, Vegetable, Meat};
 	private PizzaType pizzaType;
+	private double timeToCook;
 	private boolean extraCheese;
 	private boolean onions;
 	private boolean mushrooms;
@@ -15,7 +16,7 @@ public class Pizza {
 	int quantity;
 	//********************************************
 	
-	public Pizza(String type, boolean extraCheese, boolean onions, boolean mushrooms, boolean olives, int quantity) {
+	public Pizza(String type, double cookTime, boolean extraCheese, boolean onions, boolean mushrooms, boolean olives, int quantity) {
 		switch(type) {
 			case "Pepperoni":
 				this.pizzaType = PizzaType.Pepperoni;
@@ -34,6 +35,7 @@ public class Pizza {
 				break;
 		}
 		
+		this.timeToCook = cookTime;
 		this.extraCheese = extraCheese;
 		this.onions = onions;
 		this.mushrooms = mushrooms;
@@ -41,7 +43,11 @@ public class Pizza {
 		this.quantity = quantity;
 	}
 	
-	public double getPrice() {
+	public PizzaType getPizzaType() {
+		return pizzaType;
+	}
+	
+	public double getPriceOfPizza() {
 		double price = 0;
 		
 		switch(pizzaType) {
@@ -66,5 +72,25 @@ public class Pizza {
 		price += olives ? 0.99 : 0;
 		
 		return (price * quantity);
+	}
+	
+	public double getCookTimeOfPizza() {
+		return timeToCook;
+	}
+	
+	public boolean hasOnions() {
+		return onions;
+	}
+	
+	public boolean hasMushrooms() {
+		return mushrooms;
+	}
+	
+	public boolean hasExtraCheese() {
+		return extraCheese;
+	}
+	
+	public boolean hasOlives() {
+		return olives;
 	}
 }
