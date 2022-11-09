@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SceneControls">
    <children>
-      <Label alignment="CENTER" layoutX="250.0" layoutY="175.0" text="EMPLOYEE LOGIN:" textAlignment="CENTER" />
+      <Label alignment="CENTER" layoutX="250.0" layoutY="175.0" text="CUSTOMER LOGIN:" textAlignment="CENTER" />
       <Label alignment="CENTER" layoutX="160.0" layoutY="205.0" text="Username:" textAlignment="CENTER" />
       <Label alignment="CENTER" layoutX="160.0" layoutY="235.0" text="Password:" textAlignment="CENTER" />
       <TextField fx:id="usernameTextField" layoutX="225.0" layoutY="200.0" />

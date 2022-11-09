@@ -86,12 +86,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Button layoutX="460.0" layoutY="333.0" mnemonicParsing="false" text="Checkout">
+      <Button layoutX="495.0" layoutY="333.0" mnemonicParsing="false" text="Checkout" onAction="#switchToCheckout">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="395.0" layoutY="333.0" mnemonicParsing="false" onAction="#switchToHomeScene" text="Return">
+      <Button layoutX="430.0" layoutY="333.0" mnemonicParsing="false" onAction="#switchToHomeScene" text="Return">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="330.0" layoutY="333.0" mnemonicParsing="false" onAction="#createPizza" text="Add To Cart">
          <font>
             <Font size="14.0" />
          </font>
