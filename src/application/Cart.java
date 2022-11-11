@@ -21,9 +21,30 @@ public class Cart {
 		pizzaCart.add(pizza); //add pizza to end of list
 	}
 	
+	//OVERLOADED METHOD: remove ALL pizzas
 	public void removePizza(Pizza pizza){
 		try {
 			pizzaCart.remove(pizza);
+		}
+		catch(NullPointerException e) {
+			//TODO: throw message if not found?
+		}
+	}
+	
+	//OVERLOADED METHOD: remove quantity of pizzas
+	public void removePizza(Pizza pizza, int quantity){
+		try {
+			pizzaCart.remove(pizza);
+		}
+		catch(NullPointerException e) {
+			//TODO: throw message if not found?
+		}
+	}
+	
+	//OVERLOADED METHOD: remove at index
+	public void removePizza(int index){
+		try {
+			pizzaCart.remove(index);
 		}
 		catch(NullPointerException e) {
 			//TODO: throw message if not found?
@@ -38,6 +59,10 @@ public class Cart {
 		}
 		
 		return Total;
+	}
+	
+	public List<Pizza> getPizzaList(){
+		return pizzaCart;
 	}
 	
 	public int getIdOfCustomer() {

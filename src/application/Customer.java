@@ -18,12 +18,20 @@ public class Customer {
 		this.funds = funds;
 	}
 	
+	public Customer() {
+		cart = new Cart();
+	}
+
 	public void addPizza(Pizza pizza) {
 		cart.addPizza(pizza);
 	}
 	
 	public void removePizza(Pizza pizza) {
 		cart.removePizza(pizza);
+	}
+	
+	public Cart getCart() {
+		return cart;
 	}
 	
 	public int getID() {
