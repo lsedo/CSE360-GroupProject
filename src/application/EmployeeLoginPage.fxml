@@ -14,7 +14,7 @@
       <Label alignment="CENTER" layoutX="160.0" layoutY="205.0" text="Username:" textAlignment="CENTER" />
       <Label alignment="CENTER" layoutX="160.0" layoutY="235.0" text="Password:" textAlignment="CENTER" />
       <TextField fx:id="usernameTextField" layoutX="225.0" layoutY="200.0" />
-      <TextField fx:id="usernameTextField" layoutX="225.0" layoutY="230.0" />
+      <TextField fx:id="passwordTextField" layoutX="225.0" layoutY="230.0" />
       <Button contentDisplay="CENTER" layoutX="275.0" layoutY="265.0" mnemonicParsing="false" onAction="#switchToEmployeeHome" text="LOG IN" textAlignment="CENTER" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="100.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
       <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="251.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">

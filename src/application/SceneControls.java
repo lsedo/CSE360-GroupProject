@@ -1,9 +1,12 @@
 package application;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -33,6 +36,7 @@ public class SceneControls implements Initializable {
 
 	// user information
 	private String id;
+	private String password;
 
 	// Costs for the pizza
 	private double baseCost = 9.99, toppingsCost = 0, totalCost = 0;
@@ -44,7 +48,6 @@ public class SceneControls implements Initializable {
 	// ******************* Login Scene Items **************************
 	@FXML
 	private TextField usernameTextField = new TextField();
-
 	@FXML
 	private TextField passwordTextField = new TextField();
 	// ****************************************************************
@@ -146,34 +149,76 @@ public class SceneControls implements Initializable {
 	}
 
 	public void switchToCustomerLoginScene(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
-		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		newScene = new Scene(root);
-		stage.setScene(newScene);
-		stage.show();
+		if(login(e))
+		{
+			root = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
+			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			newScene = new Scene(root);
+			stage.setScene(newScene);
+			stage.show();
+		}
 	}
 
 	public void switchToEmployeeHome(ActionEvent e) throws IOException {
-		root = FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
-		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		newScene = new Scene(root);
-		stage.setScene(newScene);
-		stage.show();
+		if(login(e))
+		{
+			root = FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
+			stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+			newScene = new Scene(root);
+			stage.setScene(newScene);
+			stage.show();
+		}
 	}
 
 	// FOR CUSTOMER LOGIN PAGE
-	public void login(ActionEvent e) throws IOException {
-		id = usernameTextField.getText();
+	public boolean login(ActionEvent e) throws IOException {
+		id = usernameTextField.getText().toString();
+		password = passwordTextField.getText().toString();
+		
+		// Scanning to see if the login is valid
+		try {
+			File file = new File("login.txt");
+			Scanner scanner = new Scanner(file);
+			
+			String loginInfo = "";
+			char deliminiter = ':';
+			
+			while(scanner.hasNextLine())
+			{
+				loginInfo = scanner.nextLine();
+				
+				// If name and password are correct
+				// I hate Java string equivalence
+				if(loginInfo.substring(0, loginInfo.indexOf(deliminiter)).equals(id) 
+				&& loginInfo.substring(loginInfo.indexOf(deliminiter)+1, loginInfo.length()).equals(password))
+				{
+					Main.currentUser.setName(id); // TEMP NAME FOR TESTING
+					Main.openOrders.add(Main.currentUser);
+					Main.currentUser = new Customer(); // reset order
 
-		Main.currentUser.setName(id); // TEMP NAME FOR TESTING
-		Main.openOrders.add(Main.currentUser);
-		Main.currentUser = new Customer(); // reset order
-
-		root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
-		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-		newScene = new Scene(root);
-		stage.setScene(newScene);
-		stage.show();
+					/*
+					root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+					stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+					newScene = new Scene(root);
+					stage.setScene(newScene);
+					stage.show();
+					*/
+					
+					scanner.close();
+					System.out.println("User: " + id + " has logged in successfully.");
+					return true;
+				}
+			}
+			
+			// Ask for valid login details
+			scanner.close();
+			System.out.println("Enter in a valid username and password.");
+			return false;
+			
+		} catch(FileNotFoundException fileException) {
+			System.out.println("The login file does not exist. Check the name and path of the file");
+			return false;
+		}
 	}
 
 	public void deleteSelectedPizza(ActionEvent e) throws IOException {
