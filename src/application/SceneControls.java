@@ -5,6 +5,8 @@ import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +33,6 @@ public class SceneControls implements Initializable {
 
 	// user information
 	private String id;
-	private boolean isEmployee = false;
 
 	// Costs for the pizza
 	private double baseCost = 9.99, toppingsCost = 0, totalCost = 0;
@@ -43,7 +44,7 @@ public class SceneControls implements Initializable {
 	// ******************* Login Scene Items **************************
 	@FXML
 	private TextField usernameTextField = new TextField();
-	
+
 	@FXML
 	private TextField passwordTextField = new TextField();
 	// ****************************************************************
@@ -78,7 +79,13 @@ public class SceneControls implements Initializable {
 	// ****************** Checkout Scene Items *************************
 	@FXML
 	private ListView<String> customerCart = new ListView<String>();
+	// *****************************************************************
 
+	// ****************** Checkout Scene Items *************************
+	@FXML
+	private ListView<String> customerNameList = new ListView<String>();
+	@FXML
+	private ListView<String> customerItems = new ListView<String>();
 	// *****************************************************************
 
 	public void switchToHomeScene(ActionEvent e) throws IOException {
@@ -137,7 +144,7 @@ public class SceneControls implements Initializable {
 		stage.setScene(newScene);
 		stage.show();
 	}
-	
+
 	public void switchToCustomerLoginScene(ActionEvent e) throws IOException {
 		root = FXMLLoader.load(getClass().getResource("CustomerLogin.fxml"));
 		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
@@ -146,16 +153,31 @@ public class SceneControls implements Initializable {
 		stage.show();
 	}
 
+	public void switchToEmployeeHome(ActionEvent e) throws IOException {
+		root = FXMLLoader.load(getClass().getResource("EmployeeHomePage.fxml"));
+		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		newScene = new Scene(root);
+		stage.setScene(newScene);
+		stage.show();
+	}
+
+	// FOR CUSTOMER LOGIN PAGE
 	public void login(ActionEvent e) throws IOException {
-		// If the user has entered a username, not blank or only whitespace
-		if (!usernameTextField.getText().isBlank()) {
-			id = usernameTextField.getText();
-			System.out.println("User: " + id + " has logged in with password " + passwordTextField.getText() + "\n");
-		}
+		id = usernameTextField.getText();
+
+		Main.currentUser.setName(id); // TEMP NAME FOR TESTING
+		Main.openOrders.add(Main.currentUser);
+		Main.currentUser = new Customer(); // reset order
+
+		root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		newScene = new Scene(root);
+		stage.setScene(newScene);
+		stage.show();
 	}
 
 	public void deleteSelectedPizza(ActionEvent e) throws IOException {
-		if (!customerCart.getSelectionModel().isEmpty()) { //make sure an item is actually selected
+		if (!customerCart.getSelectionModel().isEmpty()) { // make sure an item is actually selected
 			int selectedItem = customerCart.getSelectionModel().getSelectedIndex(); // get current
 			if (selectedItem != Main.currentUser.getCart().getPizzaList().size()) { // making sure it's not deleting the
 																					// total cost
@@ -163,8 +185,7 @@ public class SceneControls implements Initializable {
 				customerCart.getItems().clear(); // remove all items
 				updatePizzaTable(); //
 			}
-		}
-		else {
+		} else {
 			// TODO: return error message?
 		}
 	}
@@ -218,6 +239,32 @@ public class SceneControls implements Initializable {
 		customerCart.getItems().add("TOTAL COST: " + new DecimalFormat("$#.00").format(totalCost));
 	}
 
+	public void updatePizzaButton(ActionEvent e) throws IOException {
+
+		if (!customerNameList.getSelectionModel().isEmpty()) {
+			int selectedUserIndex = customerNameList.getSelectionModel().getSelectedIndex(); // get user selected
+
+			if (Main.openOrders.get(selectedUserIndex).updateCookingStage()) { //IF TRUE THEN ORDER IS FINISHED
+				customerNameList.getSelectionModel().clearSelection();
+				customerItems.getSelectionModel().clearSelection(); // REMOVE SELECTION FROM BOTH
+				Main.openOrders.remove(selectedUserIndex); //REMOVED CUSTOMER FROM OPEN ORDERS
+			}
+
+			customerItems.getItems().clear();
+
+			if (Main.openOrders.size() != 0) { //IF ORDER IS NOT DELETED THEN PUT THE ITEMS BACK
+				for (int i = 0; i < Main.openOrders.get(selectedUserIndex).getCart().getPizzaList().size(); i++) {
+					customerItems.getItems()
+							.add(Main.openOrders.get(selectedUserIndex).getCart().getPizzaList().get(i).toString() + "("
+									+ Main.openOrders.get(selectedUserIndex).getCookingStage() + ")");
+				}
+			}
+			else { //ORDER IS DELETED
+				customerNameList.getItems().clear();
+			}
+		}
+	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		id = "";
@@ -237,5 +284,32 @@ public class SceneControls implements Initializable {
 
 		// Adding Items To Cart
 		updatePizzaTable();
+
+		// Employee Page ___________________________________________
+		customerItems.getItems().clear();
+		customerNameList.getItems().clear();
+
+		for (int i = 0; i < Main.openOrders.size(); i++) {
+			customerNameList.getItems().add(Main.openOrders.get(i).getName());
+		}
+
+		// set listener for ListView
+		customerNameList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!customerNameList.getSelectionModel().isEmpty()) {
+					int selectedIndex = customerNameList.getSelectionModel().getSelectedIndex();
+					customerItems.getItems().clear(); // clear items
+
+					for (int i = 0; i < Main.openOrders.get(selectedIndex).getCart().getPizzaList().size(); i++) {
+						customerItems.getItems()
+								.add(Main.openOrders.get(selectedIndex).getCart().getPizzaList().get(i).toString() + "("
+										+ Main.openOrders.get(selectedIndex).getCookingStage() + ")");
+					}
+				}
+			}
+		});
+
 	}
 }

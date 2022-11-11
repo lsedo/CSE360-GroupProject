@@ -11,7 +11,6 @@ public class Pizza {
 	private boolean onions;
 	private boolean mushrooms;
 	private boolean olives;
-	
 	int quantity;
 	//********************************************
 	

@@ -1,6 +1,8 @@
 package application;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +13,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	//I CAN'T BELIEVE THIS WORKS but we can use this to keep track of the current customer and their cart
-	public static boolean isCurrentlyLoggedIn = false;
 	public static Customer currentUser = new Customer();
+	public static List<Customer> openOrders = new ArrayList<Customer>(); //This can add customer orders
 	
 	public static void main(String[] args) 
 	{
