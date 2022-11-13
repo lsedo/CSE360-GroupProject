@@ -5,37 +5,17 @@ package application;
 public class Pizza {
 
 	//************ Pizza Information *************
-	private enum PizzaType {Pepperoni, Vegetable, Meat};
-	private PizzaType pizzaType;
+	private String pizzaType;
 	private double timeToCook;
 	private boolean extraCheese;
 	private boolean onions;
 	private boolean mushrooms;
 	private boolean olives;
-	
 	int quantity;
 	//********************************************
 	
-	public Pizza(String type, double cookTime, boolean extraCheese, boolean onions, boolean mushrooms, boolean olives, int quantity) {
-		switch(type) {
-			case "Pepperoni":
-				this.pizzaType = PizzaType.Pepperoni;
-				break;
-				
-			case "Vegetable":
-				this.pizzaType = PizzaType.Vegetable;
-				break;
-				
-			case "Meat":
-				this.pizzaType = PizzaType.Meat;
-				break;
-				
-			default:
-				this.pizzaType = PizzaType.Pepperoni;
-				break;
-		}
-		
-		this.timeToCook = cookTime;
+	public Pizza(String type, boolean extraCheese, boolean onions, boolean mushrooms, boolean olives, int quantity) {
+		this.pizzaType = type;
 		this.extraCheese = extraCheese;
 		this.onions = onions;
 		this.mushrooms = mushrooms;
@@ -43,7 +23,7 @@ public class Pizza {
 		this.quantity = quantity;
 	}
 	
-	public PizzaType getPizzaType() {
+	public String getPizzaType() {
 		return pizzaType;
 	}
 	
@@ -51,15 +31,15 @@ public class Pizza {
 		double price = 0;
 		
 		switch(pizzaType) {
-			case Pepperoni:
+			case "Pepperoni":
 				price += 9.99;
 			break;
 			
-			case Vegetable:
+			case "Vegetable":
 				price += 9.99;
 			break;
 			
-			case Meat:
+			case "Meat":
 				price += 11.99;
 			break;
 			
@@ -92,5 +72,18 @@ public class Pizza {
 	
 	public boolean hasOlives() {
 		return olives;
+	}
+	
+	public String toString() {
+		String pizzaStyle = new String();
+		pizzaStyle += ("(" + this.quantity + "x) ");
+		pizzaStyle += this.pizzaType + " pizza ";
+		
+		if(extraCheese) pizzaStyle += "with extra cheese ";
+		if(onions) pizzaStyle += "with onions ";
+		if(mushrooms) pizzaStyle += "with mushrooms ";
+		if(olives) pizzaStyle += "with olives ";
+		
+		return pizzaStyle;
 	}
 }

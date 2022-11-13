@@ -1,0 +1,5 @@
+username:password
+admin:supersecret
+customer:pw123
+sundevils:sparky
+profcarter:waterfall
