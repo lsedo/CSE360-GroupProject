@@ -15,8 +15,7 @@
 	  <ListView fx:id="customerNameList" prefHeight="200.0" prefWidth="240.00" layoutX="50.0" layoutY="150.0" />
 	  <ListView fx:id="customerItems" prefHeight="200.0" prefWidth="240.00" layoutX="295.0" layoutY="150.0" />
       <Button contentDisplay="CENTER" layoutX="455.0" layoutY="360.0" mnemonicParsing="false" onAction="#updatePizzaButton" text="Update Pizza Status" textAlignment="CENTER" />
-      <Button contentDisplay="CENTER" layoutX="385.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToPizzaScene" text="Add Pizza" textAlignment="CENTER" />
-      <Button contentDisplay="CENTER" layoutX="300.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteSelectedPizza" text="Delete Pizza" textAlignment="CENTER" />
+      <Button contentDisplay="CENTER" layoutX="385.0" layoutY="360.0" mnemonicParsing="false" onAction="#employeeReturn" text="Return" textAlignment="CENTER" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="100.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
       <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="251.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
          <image>

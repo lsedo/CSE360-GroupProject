@@ -155,6 +155,15 @@ public class SceneControls implements Initializable {
 			stage.setScene(newScene);
 			stage.show();
 	}
+	
+	public void employeeReturn(ActionEvent e) throws IOException {
+		Main.isLoggedIn = false;
+		root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+		stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		newScene = new Scene(root);
+		stage.setScene(newScene);
+		stage.show();
+}
 
 	public void switchToEmployeeHome(ActionEvent e) throws IOException {
 		if(employeeLogin(e))
