@@ -13,7 +13,7 @@
    <children>
       <Label alignment="CENTER" layoutX="50.0" layoutY="125.0" text="Items in Cart:" textAlignment="CENTER" />
       <ListView fx:id="customerCart" prefHeight="200.0" prefWidth="500.00" layoutX="50.0" layoutY="150.0" />
-      <Button contentDisplay="CENTER" layoutX="455.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToCustomerLoginScene" text="Log In and Pay" textAlignment="CENTER" />
+      <Button contentDisplay="CENTER" layoutX="455.0" layoutY="360.0" mnemonicParsing="false" onAction="#tryPay" text="Log In and Pay" textAlignment="CENTER" />
       <Button contentDisplay="CENTER" layoutX="385.0" layoutY="360.0" mnemonicParsing="false" onAction="#switchToPizzaScene" text="Add Pizza" textAlignment="CENTER" />
       <Button contentDisplay="CENTER" layoutX="300.0" layoutY="360.0" mnemonicParsing="false" onAction="#deleteSelectedPizza" text="Delete Pizza" textAlignment="CENTER" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="100.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />

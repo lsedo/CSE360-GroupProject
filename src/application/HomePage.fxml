@@ -29,5 +29,6 @@
          </font>
       </Label>
       <Button fx:id="loginButton" layoutX="25.0" layoutY="38.0" mnemonicParsing="false" onAction="#switchToLoginScene" text="Employee Login" />
+      <Button fx:id="loginButton" layoutX="480.0" layoutY="38.0" mnemonicParsing="false" onAction="#switchToCustomerLoginScene" text="Customer Login" />
    </children>
 </AnchorPane>
