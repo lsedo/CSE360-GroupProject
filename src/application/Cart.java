@@ -14,7 +14,10 @@ public class Cart {
 	//************************************
 	
 	public void DisplayPizzaDetails(int index) {
-		//TODO: Display information
+		for(int i = 0; i < pizzaCart.size(); i++) {
+			if(i == index)
+				System.out.println(pizzaCart.get(i).toString());
+		}
 	}
 	
 	public void addPizza(Pizza pizza) {
@@ -72,4 +75,5 @@ public class Cart {
 	public double getTimeToCook() {
 		return timeToCook;
 	}
+		
 }
